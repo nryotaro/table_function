@@ -2,10 +2,16 @@ sut = require('./index.js');
 
 describe('normalizeReferer', () => {
 
-	test('If an URL is not secured, returning null.', () => {
-		actual = sut.normalizeReferer('http://52.55.155.30/', 'foobar.com');
+	test('If an URL does not contain alphabet characters, return null.', () => {
+		actual = sut.normalizeReferer('https://52.55.155.30/', 'foobar.com');
 		expect(actual).toBe(null);
 	});
+
+	test('A referer can be insecured.', () => {
+		actual = sut.normalizeReferer('http://baidu.com/', 'foobar.com');
+		expect(actual).toBe('baidu.com');
+	});
+
 	test('If the domain of an URL is the second argument, returning null.', () => {
 		var actual = sut.normalizeReferer('https://hoge.com/aa', 'hoge.com');
 		expect(actual).toBe(null);

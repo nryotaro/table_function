@@ -11,7 +11,7 @@ function extractDomain(url) {
 	return result;
 }
 function normalizeReferer(referer, hostDomain) {
-	if (referer.startsWith('http:'))
+	if (new RegExp("^https?:\/\/[0-9\.:\/]+$").test(referer))
 		return null;
 	if (referer.includes(hostDomain))
 		return null;
@@ -22,7 +22,7 @@ function normalizeReferer(referer, hostDomain) {
 function classifyURL(url) {
 	var result = url.match('^https?:\/\/[^\/]+/(.+)$');
 	if (result == null)
-		return null;
+		return 'others';
 	var path = result[1];
 	if (new RegExp('^industry/\\d+.*$').test(path))
 		return 'industry hub';
@@ -32,6 +32,8 @@ function classifyURL(url) {
 		return 'sector home';
 	if (new RegExp('^sectors/[^\/]+/(?:insights|updates).*$').test(path))
 		return 'updates/articles';
+
+	return 'others';
 }
 
 module.exports = {
