@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nryotaro/table_function/issues"
   },
-  "homepage": "https://github.com/nryotaro/table_function#readme"
+  "homepage": "https://github.com/nryotaro/table_function#readme",
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
 }
