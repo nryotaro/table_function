@@ -1,0 +1,19 @@
+{
+  "name": "table_function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx run jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nryotaro/table_function.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nryotaro/table_function/issues"
+  },
+  "homepage": "https://github.com/nryotaro/table_function#readme"
+}
