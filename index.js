@@ -1,14 +1,8 @@
 
 function extractDomain(url) {
-	var result;
-	var match;
-	if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
-		result = match[1];
-		if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
-			result = match[1];
-		}
-	}
-	return result;
+	var match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im);
+	return match != null ? match[1] : null;
+
 }
 function normalizeReferer(referer, hostDomain) {
 	if (new RegExp("^https?:\/\/[0-9\.:\/]+$").test(referer))

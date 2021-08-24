@@ -20,6 +20,18 @@ describe('normalizeReferer', () => {
 		var actual = sut.normalizeReferer('https://t.co/foobar', 'hoge.com');
 		expect(actual).toBe('t.co');
 	});
+	test('Return the domain of an URL.', () => {
+		var actual = sut.normalizeReferer('https://t.co/foobar', 'hoge.com');
+		expect(actual).toBe('t.co');
+	});
+	test('Return the authority of an URL.', () => {
+		var actual = sut.normalizeReferer('https://google.co.jp/', 'hoge.com');
+		expect(actual).toBe('google.co.jp');
+	});
+	test("Remove 'www' from the authority of an URL.", () => {
+		var actual = sut.normalizeReferer('https://www.google.co.jp/', 'hoge.com');
+		expect(actual).toBe('google.co.jp');
+	});
 });
 
 describe('classifyRequest', () => {
