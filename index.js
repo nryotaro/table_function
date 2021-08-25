@@ -1,16 +1,11 @@
 
-function extractDomain(url) {
-	var match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im);
-	return match != null ? match[1] : null;
-
-}
-function normalizeReferer(referer, hostDomain) {
+function normalizeReferer(referer) {
+	if (referer == null)
+		return null;
 	if (new RegExp("^https?:\/\/[0-9\.:\/]+$").test(referer))
 		return null;
-	if (referer.includes(hostDomain))
-		return null;
-	return extractDomain(referer);
-
+	var match = referer.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im);
+	return match != null ? match[1] : null;
 }
 
 function classifyURL(url) {

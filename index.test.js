@@ -3,33 +3,33 @@ sut = require('./index.js');
 describe('normalizeReferer', () => {
 
 	test('If an URL does not contain alphabet characters, return null.', () => {
-		actual = sut.normalizeReferer('https://52.55.155.30/', 'foobar.com');
+		actual = sut.normalizeReferer('https://52.55.155.30/');
 		expect(actual).toBe(null);
 	});
 
 	test('A referer can be insecured.', () => {
-		actual = sut.normalizeReferer('http://baidu.com/', 'foobar.com');
+		actual = sut.normalizeReferer('http://baidu.com/');
 		expect(actual).toBe('baidu.com');
 	});
-
-	test('If the domain of an URL is the second argument, returning null.', () => {
-		var actual = sut.normalizeReferer('https://hoge.com/aa', 'hoge.com');
+	test('Return null if null was passed.', () => {
+		actual = sut.normalizeReferer(null);
 		expect(actual).toBe(null);
 	});
+
 	test('Return the domain of an URL is not the second argument.', () => {
-		var actual = sut.normalizeReferer('https://t.co/foobar', 'hoge.com');
+		var actual = sut.normalizeReferer('https://t.co/foobar');
 		expect(actual).toBe('t.co');
 	});
 	test('Return the domain of an URL.', () => {
-		var actual = sut.normalizeReferer('https://t.co/foobar', 'hoge.com');
+		var actual = sut.normalizeReferer('https://t.co/foobar');
 		expect(actual).toBe('t.co');
 	});
 	test('Return the authority of an URL.', () => {
-		var actual = sut.normalizeReferer('https://google.co.jp/', 'hoge.com');
+		var actual = sut.normalizeReferer('https://google.co.jp/');
 		expect(actual).toBe('google.co.jp');
 	});
 	test("Remove 'www' from the authority of an URL.", () => {
-		var actual = sut.normalizeReferer('https://www.google.co.jp/', 'hoge.com');
+		var actual = sut.normalizeReferer('https://www.google.co.jp/');
 		expect(actual).toBe('google.co.jp');
 	});
 });
