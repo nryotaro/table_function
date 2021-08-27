@@ -37,6 +37,11 @@ describe('normalizeSource', () => {
 		var actual = sut.normalizeSource(null, 'https://doge.com/?utm_medium=email&utm_campaign=website&utm_source=sendgrid.com');
 		expect(actual).toBe('sendgrid.com');
 	});
+	test("If referer was null, and url does not contain 'utm_source,' returning null", () => {
+
+		var actual = sut.normalizeSource(null, 'https://doge.com/');
+		expect(actual).toBe(null);
+	});
 });
 
 describe('classifyRequest', () => {
