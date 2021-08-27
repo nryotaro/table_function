@@ -1,36 +1,41 @@
 sut = require('./index.js');
 
-describe('normalizeReferer', () => {
+describe('normalizeSource', () => {
 
 	test('If an URL does not contain alphabet characters, return null.', () => {
-		actual = sut.normalizeReferer('https://52.55.155.30/');
+		var actual = sut.normalizeSource('https://52.55.155.30/', 'https://doge.com');
 		expect(actual).toBe(null);
 	});
 
 	test('A referer can be insecured.', () => {
-		actual = sut.normalizeReferer('http://baidu.com/');
+		actual = sut.normalizeSource('http://baidu.com/', 'https://doge.com');
 		expect(actual).toBe('baidu.com');
 	});
 	test('Return null if null was passed.', () => {
-		actual = sut.normalizeReferer(null);
+		actual = sut.normalizeSource(null, 'https://googe.com');
 		expect(actual).toBe(null);
 	});
 
 	test('Return the domain of an URL is not the second argument.', () => {
-		var actual = sut.normalizeReferer('https://t.co/foobar');
+		var actual = sut.normalizeSource('https://t.co/foobar', 'https://foobar.com');
 		expect(actual).toBe('t.co');
 	});
 	test('Return the domain of an URL.', () => {
-		var actual = sut.normalizeReferer('https://t.co/foobar');
+		var actual = sut.normalizeSource('https://t.co/foobar', 'https://dog.bow');
 		expect(actual).toBe('t.co');
 	});
 	test('Return the authority of an URL.', () => {
-		var actual = sut.normalizeReferer('https://google.co.jp/');
+		var actual = sut.normalizeSource('https://google.co.jp/', 'https://manga.com');
 		expect(actual).toBe('google.co.jp');
 	});
 	test("Remove 'www' from the authority of an URL.", () => {
-		var actual = sut.normalizeReferer('https://www.google.co.jp/');
+		var actual = sut.normalizeSource('https://www.google.co.jp/', 'https://ping.com');
 		expect(actual).toBe('google.co.jp');
+	});
+	test("If referer was null, and url contains 'utm_source,' returning the value of the 'utm_source'", () => {
+
+		var actual = sut.normalizeSource(null, 'https://doge.com/?utm_medium=email&utm_campaign=website&utm_source=sendgrid.com');
+		expect(actual).toBe('sendgrid.com');
 	});
 });
 

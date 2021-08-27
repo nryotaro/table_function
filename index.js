@@ -8,6 +8,20 @@ function normalizeReferer(referer) {
 	return match != null ? match[1] : null;
 }
 
+function extract_utm_source(url) {
+	var match = url.match(/utm_source=([^&]+)/);
+	if (match != null)
+		return match[1];
+	return null;
+}
+
+function normalizeSource(referer, url) {
+	var normalizedReferer = normalizeReferer(referer);
+	if(normalizedReferer != null)
+		return normalizedReferer;
+	return extract_utm_source(url);
+}
+
 function classifyURL(url) {
 	var result = url.match('^https?:\/\/[^\/]+/(.+)$');
 	if (result == null)
@@ -26,6 +40,6 @@ function classifyURL(url) {
 }
 
 module.exports = {
-	normalizeReferer,
+	normalizeSource,
 	classifyURL,
 };
