@@ -86,11 +86,6 @@ describe('classifyRequest', () => {
 		expect(actual).toBe('company profile');
 	});
 
-	test("If the path is in the format of '/companies/3?utm_source=doge', classify it into 'company profile.'", () => {
-		var actual = sut.classifyURL('https://doge.com/companies/3');
-		expect(actual).toBe('company profile');
-	});
-
 	test("If the path is in the format of '/sectors/<sector name>', classify it into 'sector home.'", () => {
 		var actual = sut.classifyURL('https://doge.com/sectors/pet');
 		expect(actual).toBe('sector home');
