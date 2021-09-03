@@ -46,6 +46,36 @@ describe('normalizeSource', () => {
 
 describe('classifyRequest', () => {
 
+	test("If the url ends with the domain, classify it into 'top page.'", () => {
+		var actual = sut.classifyURL('https://doge.com');
+		expect(actual).toBe('top page');
+	});
+
+	test("If the path of an URL is '/', classify it into 'top page.'", () => {
+		var actual = sut.classifyURL('https://doge.com/');
+		expect(actual).toBe('top page');
+	})
+	test("If the end of an URL is in the format of '<domain>/?a=1...', classify it into 'top page.'", () => {
+		var actual = sut.classifyURL('https://doge.com/?a=2');
+		expect(actual).toBe('top page');
+	})
+	test("If the end of an URL is in the format of '<domain>?a=1...', classify it into 'top page.'", () => {
+		var actual = sut.classifyURL('https://doge.com?a=2');
+		expect(actual).toBe('top page');
+	})
+	test("If the path starts with 'industries,' classify it into 'industries.'", () => {
+		var actual = sut.classifyURL('https://doge.com/industries');
+		expect(actual).toBe('industries');
+	});
+	test("If the path starts with 'industries/,' classify it into 'industries.'", () => {
+		var actual = sut.classifyURL('https://doge.com/industries/');
+		expect(actual).toBe('industries');
+	});
+	test("If the path starts with 'industries,' and contains query parameters, classify it into 'industries.'", () => {
+		var actual = sut.classifyURL('https://doge.com/industries?a=d3');
+		expect(actual).toBe('industries');
+	});
+
 	test("If the path starts with 'industry,' and the second part of the path is an integer, classify it into 'industry hub.'", () => {
 		var actual = sut.classifyURL('https://doge.com/industry/3');
 		expect(actual).toBe('industry hub');
